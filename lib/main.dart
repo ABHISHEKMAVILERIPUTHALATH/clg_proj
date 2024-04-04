@@ -9,14 +9,14 @@ import 'package:main_project/attendee/attendee_events_page.dart';
 import 'package:main_project/home/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase_options.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_test_51OuXOvSGP6q2G3Epp2YZnWDbHt7S7ouS3EMpwd73Xdnn4221iD9mfTl1QIXhIOJLChcY4U6CAfBdSrpBbjx5RqvZ00FbMzkGOy';
   runApp(const MyApp());
 }
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
                 return const MaterialApp(
                   debugShowCheckedModeBanner: false,
                   home: AppIntro(),
+                  // Events(),
                 );
               }
             },

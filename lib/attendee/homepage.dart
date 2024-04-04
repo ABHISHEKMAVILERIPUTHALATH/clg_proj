@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
-          }
+          } 
 
           if (!snapshot.hasData) {
             return const  Center(

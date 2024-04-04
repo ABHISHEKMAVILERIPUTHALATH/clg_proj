@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/attendee/attendee_navigation_drawer.dart';
+// import 'package:main_project/attendee/stripe_payment_screen.dart';
 import 'package:main_project/home/loading.dart';
 import '/attendee/attendee_navigation.dart';
 import '/attendee/event_info.dart';
@@ -141,6 +142,7 @@ class _EventsState extends State<Events> {
                         'mobile': eventData['mobile'] as String? ?? '',
                         'email': eventData['email'] as String? ?? '',
                         'host': eventData['host'] as String? ?? '',
+                        'payamnd': eventData['payamnd'] as String? ?? '',
                         'timeStamp': eventData['timeStamp'] as String? ?? '',
                         'days': eventData['days'] as List<dynamic>? ?? [],
                       };
@@ -276,35 +278,39 @@ class _EventsState extends State<Events> {
                                           width: 300,
                                           child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.of(context)
-                                                    .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EventInfo(
-                                                    title: thisItem['title'],
-                                                    description:
-                                                        thisItem['description'],
-                                                    instructions: thisItem[
-                                                        'instructions'],
-                                                    capacity:
-                                                        thisItem['capacity'],
-                                                    location:
-                                                        thisItem['location'],
-                                                    mobile: thisItem['mobile'],
-                                                    email: thisItem['email'],
-                                                    host: thisItem['host'],
-                                                    timeStamp:
-                                                        thisItem['timeStamp'],
-                                                    days: thisItem['days'],
-                                                    startTime:
-                                                        thisItem['startTime'],
-                                                    endTime:
-                                                        thisItem['endTime'],
-                                                    startDate:
-                                                        thisItem['startDate'],
-                                                    endDate:
-                                                        thisItem['endDate'],
-                                                  ),
-                                                ));
+                                                  Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EventInfo(
+                                                      title: thisItem['title'],
+                                                      description: thisItem[
+                                                          'description'],
+                                                      instructions: thisItem[
+                                                          'instructions'],
+                                                      capacity:
+                                                          thisItem['capacity'],
+                                                      location:
+                                                          thisItem['location'],
+                                                      mobile:
+                                                          thisItem['mobile'],
+                                                      email: thisItem['email'],
+                                                      host: thisItem['host'],
+                                                      timeStamp:
+                                                          thisItem['timeStamp'],
+                                                      days: thisItem['days'],
+                                                      startTime:
+                                                          thisItem['startTime'],
+                                                      endTime:
+                                                          thisItem['endTime'],
+                                                      startDate:
+                                                          thisItem['startDate'],
+                                                      endDate:
+                                                          thisItem['endDate'],
+                                                      payamnd:
+                                                          thisItem['payamnd'],
+                                                    ),
+                                                  ));
+                                                
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:

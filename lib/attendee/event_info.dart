@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:main_project/attendee/stripe_payment_screen.dart';
 import '/attendee/attendee_navigation.dart';
 import 'event_registration.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,24 +23,25 @@ class EventInfo extends StatefulWidget {
   final String endTime;
   final String startDate;
   final String endDate;
+  final String payamnd;
 
-  const EventInfo({
-    super.key,
-    required this.title,
-    required this.description,
-    required this.instructions,
-    required this.capacity,
-    required this.location,
-    required this.mobile,
-    required this.email,
-    required this.host,
-    required this.timeStamp,
-    required this.days,
-    required this.startTime,
-    required this.endTime,
-    required this.startDate,
-    required this.endDate,
-  });
+  const EventInfo(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.instructions,
+      required this.capacity,
+      required this.location,
+      required this.mobile,
+      required this.email,
+      required this.host,
+      required this.timeStamp,
+      required this.days,
+      required this.startTime,
+      required this.endTime,
+      required this.startDate,
+      required this.endDate,
+      required this.payamnd});
 
   @override
   State<EventInfo> createState() => _EventInfoState();
@@ -150,9 +152,9 @@ class _EventInfoState extends State<EventInfo> {
         FirebaseFirestore.instance.collection('events');
     QuerySnapshot querySnapshot = await eventsRef
         .where('title', isEqualTo: widget.title)
-        .where('description', isEqualTo:widget.description)
+        .where('description', isEqualTo: widget.description)
         .get();
-        print(querySnapshot);
+    print(querySnapshot);
 
     if (querySnapshot.docs.isNotEmpty) {
       DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
@@ -528,6 +530,27 @@ class _EventInfoState extends State<EventInfo> {
                         const SizedBox(
                           height: 10,
                         ),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Registration Fee : ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(text: widget.payamnd),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Center(
                           child: Column(
                             children: [
@@ -538,7 +561,17 @@ class _EventInfoState extends State<EventInfo> {
                                 height: 50,
                                 width: 300,
                                 child: ElevatedButton(
-                                    onPressed: registerForEvent,
+                                    onPressed: () {
+                                      if (widget.payamnd == '0') {
+                                        registerForEvent();
+                                      } else {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    StripePaymentScreen(
+                                                        widget.payamnd)));
+                                      }
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.deepPurple,
                                       shape: RoundedRectangleBorder(

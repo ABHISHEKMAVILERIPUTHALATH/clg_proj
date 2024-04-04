@@ -25,6 +25,7 @@ class _HostEventState extends State<HostEvent> {
   late final TextEditingController _email;
   late final TextEditingController _host;
   late final TextEditingController _numberOfDaysController;
+  late final TextEditingController _payamnd;
   DateTime? _startDate;
   DateTime? _endDate;
   TimeOfDay? _startTime;
@@ -55,6 +56,7 @@ class _HostEventState extends State<HostEvent> {
     _endDate = DateTime.now();
     _startTime = TimeOfDay.now();
     _endTime = TimeOfDay.now();
+    _payamnd = TextEditingController();
 
     userEmail = FirebaseAuth.instance.currentUser?.email;
 
@@ -72,6 +74,7 @@ class _HostEventState extends State<HostEvent> {
     _email.dispose();
     _host.dispose();
     _numberOfDaysController.dispose();
+    _payamnd.dispose();
     for (var controller in _dayWiseDescription) {
       controller.dispose();
     }
@@ -95,6 +98,7 @@ class _HostEventState extends State<HostEvent> {
     TimeOfDay startTime,
     TimeOfDay endTime,
     int numOfRegisteredUsers,
+    String payamnd,
   ) async {
     final eventDoc = FirebaseFirestore.instance.collection("events").doc();
     List<String> days = [];
@@ -120,8 +124,9 @@ class _HostEventState extends State<HostEvent> {
       'startTime': _formatTime(startTime),
       'endTime': _formatTime(endTime),
       'numOfRegisteredUsers': numOfRegisteredUsers,
+      'payamnd': payamnd,
     };
-
+    print(payamnd);
     await eventDoc.set(eventData);
 
     documentId = eventDoc.id;
@@ -697,6 +702,31 @@ class _HostEventState extends State<HostEvent> {
                   ),
                 ),
               ),
+              //payment
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextField(
+                      controller: _payamnd,
+                      cursorColor: Colors.deepPurple,
+                      decoration: const InputDecoration(
+                        hintText: 'Amount to be paid',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               //EVENT HOSTING BUTTON
               const SizedBox(
                 height: 20,
@@ -722,6 +752,7 @@ class _HostEventState extends State<HostEvent> {
                         final endDate = _endDate.toString();
                         final startTime = _startTime.toString();
                         final endTime = _endTime.toString();
+                        final payamnd = _payamnd.text.trim();
                         try {
                           if (title.isNotEmpty &&
                               description.isNotEmpty &&
@@ -739,22 +770,22 @@ class _HostEventState extends State<HostEvent> {
                               startTime.isNotEmpty &&
                               endTime.isNotEmpty) {
                             await addEventDetails(
-                              title,
-                              description,
-                              instructions,
-                              capacity,
-                              location,
-                              mobile,
-                              email,
-                              host,
-                              timeStamp,
-                              _numberOfDays,
-                              _startDate!,
-                              _endDate!,
-                              _startTime!,
-                              _endTime!,
-                              numOfRegisteredUsers,
-                            );
+                                title,
+                                description,
+                                instructions,
+                                capacity,
+                                location,
+                                mobile,
+                                email,
+                                host,
+                                timeStamp,
+                                _numberOfDays,
+                                _startDate!,
+                                _endDate!,
+                                _startTime!,
+                                _endTime!,
+                                numOfRegisteredUsers,
+                                payamnd);
 
                             // ignore: use_build_context_synchronously
                             await Navigator.of(context).push(
@@ -894,12 +925,12 @@ class _HostEventState extends State<HostEvent> {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            child: const Text("Go to My Events",
-            style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-            
+            child: const Text(
+              "Go to My Events",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

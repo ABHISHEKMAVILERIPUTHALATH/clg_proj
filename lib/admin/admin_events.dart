@@ -133,6 +133,7 @@ class _AdminEventsState extends State<AdminEvents> {
                     final mobile = event['mobile'];
                     final email = event['email'];
                     final host = event['host'];
+                    final payamnd = event['payamnd'];
                     final days = event['days'] as List<dynamic>;
                     String sdate = DateFormat('dd/MM/yyyy')
                         .format(DateTime.parse(startDate));
@@ -490,6 +491,38 @@ class _AdminEventsState extends State<AdminEvents> {
                                                 ),
                                                 TextSpan(
                                                   text: host,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    //amound payment
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Flexible(
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                              children: <TextSpan>[
+                                                const TextSpan(
+                                                  text: "Registration Fee : ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: "$payamnd",
                                                   style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.normal,
