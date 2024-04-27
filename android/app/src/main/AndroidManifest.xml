@@ -33,7 +33,11 @@
             android:value="2" />
 
     <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyCWAfoEWl0sykz5Swi0ltT1Dapyg5ADvcU"/>
+               android:value="AIzaSyCWAfoEWl0sykz5Swi0ltT1Dapyg5ADvcU"
+        />
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
 
     </application>
     <!-- Required to query activities that can process text, see:

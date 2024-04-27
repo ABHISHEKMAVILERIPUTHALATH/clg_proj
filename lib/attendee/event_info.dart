@@ -561,16 +561,16 @@ class _EventInfoState extends State<EventInfo> {
                                 height: 50,
                                 width: 300,
                                 child: ElevatedButton(
-                                    onPressed: () {
-                                      if (widget.payamnd == '0') {
-                                        registerForEvent();
-                                      } else {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    StripePaymentScreen(
-                                                        widget.payamnd)));
-                                      }
+                                    onPressed: () {registerForEvent();
+                                      // if (widget.payamnd == '0') {
+                                      //   registerForEvent();
+                                      // } else {
+                                      //   Navigator.of(context).push(
+                                      //       MaterialPageRoute(
+                                      //           builder: (context) =>
+                                      //               StripePaymentScreen(
+                                      //                   widget.payamnd)));
+                                      // }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.deepPurple,
@@ -585,6 +585,23 @@ class _EventInfoState extends State<EventInfo> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )),
+                              ),
+                              SizedBox(height: 10,),
+                              SizedBox(
+                                height: 50,
+                                width: 300,
+                                child: ElevatedButton(onPressed: () {
+                                  Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    StripePaymentScreen(
+                                                        widget.payamnd)));
+                                }, child: Text("CONTRIBUTE", style: TextStyle(color: Colors.white),), style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.deepPurple,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),),
                               ),
                             ],
                           ),
